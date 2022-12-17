@@ -5,51 +5,57 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-welcome() {
-    echo "一键脚本出现任何问题请自行安装！ "
-    echo ""
-    echo "欢迎使用Linux便民工具"
-}
-
-apt_update() {
-    echo "正在优化 apt-get . . ."
-    apt-get install sudo -y >>/dev/null 2>&1
-    apt-get update >>/dev/null 2>&1
-}
-
-apt_bash_check() {
-    echo "正在检查 bash 安装情况 . . ."
-    if command -v bash >>/dev/null 2>&1; then
-        echo "bash 似乎存在, 继续 . . ."
-    else
-        echo "bash 未安装在此系统上，正在进行安装"
-        apt-get install bash -y >>/dev/null 2>&1
-    fi
-}
-
-apt_wget_check() {
-    echo "正在检查 wget 安装情况 . . ."
-    if command -v wget >>/dev/null 2>&1; then
-        echo "wget 似乎存在, 继续 . . ."
-    else
-        echo "wget 未安装在此系统上，正在进行安装"
-        apt-get install wget -y >>/dev/null 2>&1
-    fi
-}
-
 DD() {
     echo "一键DD系统"
-    read -p "请选择系统 Ubuntu输入u debian输入d：" D 
-    read -p "请选择系统版本号：" DD
+    read -p "请选择系统 Ubuntu输入u debian输入d：" xt 
+    read -p "请选择系统版本号：" bb
     read -p "请输入系统密码：" password
     echo "系统为$D,$DD,账号为root,密码为$password"
-    #bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$D $DD -v 64 -a -firmware -p $password
+    bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$xt $bb -v 64 -a -firmware -p $password
     
 }
 docker() {
     echo "一键换源安装docker"
     bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/DockerInstallation.sh)
+    shon_online
 }
+
+cloudflare() {
+    echo "一键cloudflare内网穿透"
+    bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/Tunnel.sh)
+    shon_online
+    }
+
+nodejs1() {
+    echo "安装/更新 最新长期支持版nodejs"
+    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
+    shon_online
+    }
+nodejs2() {
+    echo "安装/更新 最新当前发布版nodejs"
+    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
+    shon_online
+}
+nodejs3() {
+    echo "安装/更新 指定版本nodejs"
+    read -p "请输入版本号：" node
+    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v $node
+    shon_online
+    }
+nodejs4() {
+    echo "强制更新nodejs"
+    echo ""
+    echo "默认更新策略是已有版本和最新版本一样就不去更新, 要强制更新输入yes默认更新输入no"
+    if [ $choose = "yes" ]
+    then
+    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
+    fi
+    if [ $choose = "no" ]
+    then
+    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -f
+    fi
+    shon_online  
+    }
 
 shon_online() {
     echo "一键脚本出现任何问题请手动安装"
@@ -70,11 +76,11 @@ shon_online() {
     case $N in
     1) DD ;;
     2) docker ;;
-    3) reinstall ;;
-    4) cleansession ;;
-    5) stop_pager ;;
-    6) start_pager ;;
-    7) restart_pager ;;
+    3) cloudflare ;;
+    4) nodejs1 ;;
+    5) nodejs2 ;;
+    6) nodejs3 ;;
+    7) nodejs4 ;;
     8) exit ;;
     *) echo "Wrong input!" ;;
     esac
