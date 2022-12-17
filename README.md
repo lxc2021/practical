@@ -1,5 +1,9 @@
 # 脚本及使用方法
-记录一些实用的脚本
+## All
+```
+bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/All.sh)
+
+```
 ## DD系统ubuntu20.04
 ```
 bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -u 20.04 -v 64 -a -firmware -p **
