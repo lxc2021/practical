@@ -49,7 +49,6 @@ DD() {
     bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$D $DD -v 64 -a -firmware -p $password
     
 }
-
 docker() {
     echo "一键换源安装docker"
     bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/DockerInstallation.sh)
@@ -60,7 +59,6 @@ shon_online() {
     echo ""
     echo ""
     echo "请选择您需要进行的操作:"
-    echo "  0) 退出脚本"
     echo "  1) 一键DD系统"
     echo "  2) 一键换源安装docker"
     echo "  3) 一键cloudflare内网穿透"
@@ -68,6 +66,7 @@ shon_online() {
     echo "  5) 安装/更新 最新当前发布版nodejs"
     echo "  6) 安装/更新 指定版本nodejs"
     echo "  7) 强制更新nodejs"
+    echo "  8) 退出脚本"
     echo ""
     echo -n "请输入编号: "
     read N
@@ -79,7 +78,7 @@ shon_online() {
     5) stop_pager ;;
     6) start_pager ;;
     7) restart_pager ;;
-    0) exit ;;
+    8) exit ;;
     *) echo "Wrong input!" ;;
     esac
 }
