@@ -29,35 +29,26 @@ cloudflare() {
 nodejs1() {
     echo "安装/更新 最新长期支持版nodejs"
     bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
+    node -v
     shon_online
     }
 nodejs2() {
     echo "安装/更新 最新当前发布版nodejs"
     bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
+    node -v
     shon_online
 }
 nodejs3() {
     echo "安装/更新 指定版本nodejs"
     read -p "请输入版本号：" node
     bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v $node
+    node -v
     shon_online
-    }
-nodejs4() {
-    echo "强制更新nodejs"
-    echo ""
-    echo "默认更新策略是已有版本和最新版本一样就不去更新, 要强制更新输入yes默认更新输入no"
-    if [ $choose = "yes" ]
-    then
-    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
-    fi
-    if [ $choose = "no" ]
-    then
-    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -f
-    fi
-    shon_online  
     }
 
 shon_online() {
+    echo ""
+    echo ""
     echo "一键脚本出现任何问题请手动安装"
     echo ""
     echo ""
@@ -68,7 +59,6 @@ shon_online() {
     echo "  4) 安装/更新 最新长期支持版nodejs"
     echo "  5) 安装/更新 最新当前发布版nodejs"
     echo "  6) 安装/更新 指定版本nodejs"
-    echo "  7) 强制更新nodejs"
     echo "  8) 退出脚本"
     echo ""
     echo -n "请输入编号: "
@@ -80,8 +70,7 @@ shon_online() {
     4) nodejs1 ;;
     5) nodejs2 ;;
     6) nodejs3 ;;
-    7) nodejs4 ;;
-    8) exit ;;
+    7) exit ;;
     *) echo "Wrong input!" ;;
     esac
 }
