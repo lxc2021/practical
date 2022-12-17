@@ -50,7 +50,7 @@ DD() {
     
 }
 
-DD() {
+docker() {
     echo "一键换源安装docker"
     bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/DockerInstallation.sh)
 }
@@ -73,7 +73,7 @@ shon_online() {
     read N
     case $N in
     1) DD ;;
-    2) cleanup ;;
+    2) docker ;;
     3) reinstall ;;
     4) cleansession ;;
     5) stop_pager ;;
