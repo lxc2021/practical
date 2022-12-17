@@ -2,7 +2,6 @@
 ## All
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/All.sh)
-
 ```
 ## DD系统ubuntu20.04
 ```
