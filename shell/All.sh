@@ -39,13 +39,13 @@ apt_wget_check() {
 
 DD() {
     echo "一键DD系统"
+    read -p "请选择系统 Ubuntu输入u debian输入d：" D 
     read $D
-    read -p "请选择系统 Ubuntu输入u debian输入d：" D
-    read $DD
     read -p "请选择系统版本号：" DD
-    read $password
+    read $DD
     read -p "请输入系统密码：" DD
     echo "系统为$D,$DD,账号为root,密码为$password"
+    read $password
     #bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$D $DD -v 64 -a -firmware -p $password
     
 }
