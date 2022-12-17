@@ -18,18 +18,18 @@ bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/Tun
 ```
 ## 安装/更新 最新长期支持版nodejs
 ```
-source <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
+bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
 ```
 ## 安装/更新 最新当前发布版nodejs
 ```
-source <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
+bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
 ```
 ## 安装/更新 指定版本nodejs
 ```
-source <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v 14.12.0
+bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v 14.12.0
 ``` 
 ## 强制更新nodejs
 默认更新策略是已有版本和最新版本一样就不去更新, 要强制更新添加-f
 ```
-source <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -f
+bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -f
 ```
