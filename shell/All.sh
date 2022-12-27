@@ -7,7 +7,7 @@ fi
 a=$(curl --noproxy '*' -sSL https://ip.zhp.asia/)
 b="China"
 ## 统计脚本运行次数
-COUNT=$(curl -sm1 "https://hist.woolzhp.eu.org/" 2>&1) &&
+COUNT=$(curl -sm1 "https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.sanling.ml/YYWO/practical&count_bg=#79C83D&title_bg=#555555&icon=&icon_color=#E7E7E7&title=hits&edge_flat=false" 2>&1) &&
 TODAY=$(expr "$COUNT" : '.*\s\([0-9]\{1,\}\)\s/.*')
 TOTAL=$(expr "$COUNT" : '.*/\s\([0-9]\{1,\}\)\s.*')
 
