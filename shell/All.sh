@@ -4,6 +4,10 @@ if [[ $EUID -ne 0 ]]; then
     echo "错误：本脚本需要 root 权限执行。" 1>&2
     exit 1
 fi
+## 统计脚本运行次数
+COUNT=$(curl -sm1 "https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.sanling.ml%2FYYWO%2Fpractical&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" 2>&1) &&
+TODAY=$(expr "$COUNT" : '.*\s\([0-9]\{1,\}\)\s/.*')
+TOTAL=$(expr "$COUNT" : '.*/\s\([0-9]\{1,\}\)\s.*')
 
 DD() {
     echo "一键DD系统"
@@ -60,6 +64,7 @@ shon_online() {
     echo ""
     echo "一键脚本出现任何问题请手动安装"
     echo ""
+	echo "今日运行次数：$TODAY   总共运行次数：$TOTAL"
     echo ""
     echo "请选择您需要进行的操作:"
     echo "  1) 一键DD系统"
