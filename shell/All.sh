@@ -45,6 +45,15 @@ nodejs3() {
     node -v
     shon_online
     }
+filebrowser() {
+    echo "docker安装filebrowser"
+    read -p "请输入文件管理目录（默认/root）：" catalogue
+	[ -z $catalogue ] && catalogue=/root
+    read -p "请输入映射端口（默认80）：" filebrowserport
+	[ -z $filebrowserport ] && filebrowserport=80
+    sudo docker run -d     -v $catalogue:/srv     -e PUID=$(id -u)     -e PGID=$(id -g)     -p $filebrowserport:80     --name=filebrowser     --privileged=true     --restart always filebrowser/filebrowser
+    shon_online
+    }
 
 shon_online() {
     echo ""
@@ -59,6 +68,7 @@ shon_online() {
     echo "  4) 安装/更新 最新长期支持版nodejs"
     echo "  5) 安装/更新 最新当前发布版nodejs"
     echo "  6) 安装/更新 指定版本nodejs"
+    echo "  7) docker安装filebrowser"
     echo "  8) 退出脚本"
     echo ""
     echo -n "请输入编号: "
@@ -70,7 +80,8 @@ shon_online() {
     4) nodejs1 ;;
     5) nodejs2 ;;
     6) nodejs3 ;;
-    7) exit ;;
+    7) filebrowser ;;
+    8) exit ;;
     *) echo "Wrong input!" ;;
     esac
 }
