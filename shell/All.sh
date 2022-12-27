@@ -4,8 +4,10 @@ if [[ $EUID -ne 0 ]]; then
     echo "错误：本脚本需要 root 权限执行。" 1>&2
     exit 1
 fi
+a=$(curl --noproxy '*' -sSL https://ip.zhp.asia/)
+b="China"
 ## 统计脚本运行次数
-COUNT=$(curl -sm1 "https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.sanling.ml%2FYYWO%2Fpractical&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" 2>&1) &&
+COUNT=$(curl -sm1 "https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.sanling.ml/YYWO/practical&count_bg=#79C83D&title_bg=#555555&icon=&icon_color=#E7E7E7&title=hits&edge_flat=false" 2>&1) &&
 TODAY=$(expr "$COUNT" : '.*\s\([0-9]\{1,\}\)\s/.*')
 TOTAL=$(expr "$COUNT" : '.*/\s\([0-9]\{1,\}\)\s.*')
 
@@ -15,29 +17,49 @@ DD() {
     read -p "请选择系统版本号：" bb
     read -p "请输入系统密码：" password
     echo "系统为$D,$DD,账号为root,密码为$password"
+if [[ $a == *$b* ]]
+    then
+    bash <(wget --no-check-certificate -qO- 'https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$xt $bb -v 64 -a -firmware -p $password
+fi
     bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$xt $bb -v 64 -a -firmware -p $password
     
 }
 docker() {
     echo "一键换源安装docker"
+if [[ $a == *$b* ]]
+    then
+    bash <(curl -sSL https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/DockerInstallation.sh)
+fi
     bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/DockerInstallation.sh)
     shon_online
 }
 
 cloudflare() {
     echo "一键cloudflare内网穿透"
+if [[ $a == *$b* ]]
+    then
+    bash <(curl -sSL https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/Tunnel.sh)
+fi
     bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/Tunnel.sh)
     shon_online
     }
 
 nodejs1() {
     echo "安装/更新 最新长期支持版nodejs"
+if [[ $a == *$b* ]]
+    then
+    bash <(curl -L https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
+fi
     bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
     node -v
     shon_online
     }
 nodejs2() {
     echo "安装/更新 最新当前发布版nodejs"
+if [[ $a == *$b* ]]
+    then
+    bash <(curl -L https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
+fi
     bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
     node -v
     shon_online
@@ -45,6 +67,10 @@ nodejs2() {
 nodejs3() {
     echo "安装/更新 指定版本nodejs"
     read -p "请输入版本号：" node
+if [[ $a == *$b* ]]
+    then
+    bash <(curl -L https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v $node
+fi
     bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v $node
     node -v
     shon_online
