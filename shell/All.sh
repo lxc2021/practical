@@ -44,37 +44,27 @@ fi
     shon_online
     }
 
-nodejs1() {
-    echo "安装/更新 最新长期支持版nodejs"
-if [[ $a == *$b* ]]
-    then
-    bash <(curl -L https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
+nodejs nodejs1() {
+echo "1.安装/更新 最新长期支持版nodejs"
+echo "2.安装/更新 最新当前发布版nodejs"
+echo "3.安装/更新 指定版本nodejs"
+read -p "请输入序号: " yn
+ if [[ $yn == "1" ]];then
+  bash <(curl -sSL 'https://github.sanling.ml/YYWO/practical/raw/main/shell/nodejs.sh') 
+ elif [[ $yn == "2" ]];then
+  bash <(curl -sSL 'https://github.sanling.ml/YYWO/practical/raw/main/shell/nodejs.sh') -l
+ elif [[ $yn == "3" ]];then
+  read -p "请选择所要安装的版本：" V
+  bash <(curl -sSL 'https://github.sanling.ml/YYWO/practical/raw/main/shell/nodejs.sh') -v $V
+  node -v
+else
+   green "输入有误，如有需要请重新运行"
+   shon_online
 fi
-    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh)
-    node -v
-    shon_online
+
+
     }
-nodejs2() {
-    echo "安装/更新 最新当前发布版nodejs"
-if [[ $a == *$b* ]]
-    then
-    bash <(curl -L https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
-fi
-    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -l
-    node -v
-    shon_online
-}
-nodejs3() {
-    echo "安装/更新 指定版本nodejs"
-    read -p "请输入版本号：" node
-if [[ $a == *$b* ]]
-    then
-    bash <(curl -L https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v $node
-fi
-    bash <(curl -L https://raw.githubusercontent.com/YYWO/practical/main/shell/nodejs.sh) -v $node
-    node -v
-    shon_online
-    }
+
 filebrowser() {
     echo "docker安装filebrowser"
     read -p "请输入文件管理目录（默认/root）：" catalogue
@@ -115,11 +105,9 @@ shon_online() {
     echo "  1) 一键DD系统"
     echo "  2) 一键换源安装docker"
     echo "  3) 一键cloudflare内网穿透"
-    echo "  4) 安装/更新 最新长期支持版nodejs"
-    echo "  5) 安装/更新 最新当前发布版nodejs"
-    echo "  6) 安装/更新 指定版本nodejs"
-    echo "  7) docker安装filebrowser"
-    echo "  8) Frps服务端一键配置脚本"  
+    echo "  4) 安装/更新nodejs"
+    echo "  5) docker安装filebrowser"
+    echo "  6) Frps服务端一键配置脚本"  
     echo ""
     echo -n "请输入编号: "
     read N
