@@ -84,6 +84,24 @@ filebrowser() {
     sudo docker run -d     -v $catalogue:/srv     -e PUID=$(id -u)     -e PGID=$(id -g)     -p $filebrowserport:80     --name=filebrowser     --privileged=true     --restart always filebrowser/filebrowser
     shon_online
     }
+    
+frps() {
+green "1.Frps服务端安装"
+green "2.Frps服务端更新"
+green "3.Frps服务端卸载"
+read -p "请输入序号: " yn
+ if [[ $yn == "1" ]];then
+  bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') install
+ elif [[ $yn == "2" ]];then
+  bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') update
+ elif [[ $yn == "3" ]];then
+  bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') uninstall
+else
+   green "输入有误，如有需要请重新运行"
+   shon_online
+fi
+    }
+    
 
 shon_online() {
     echo ""
@@ -93,6 +111,7 @@ shon_online() {
     echo "今日运行次数：$TODAY   总共运行次数：$TOTAL"
     echo ""
     echo "请选择您需要进行的操作:"
+    echo "  0) 退出脚本"
     echo "  1) 一键DD系统"
     echo "  2) 一键换源安装docker"
     echo "  3) 一键cloudflare内网穿透"
@@ -100,11 +119,12 @@ shon_online() {
     echo "  5) 安装/更新 最新当前发布版nodejs"
     echo "  6) 安装/更新 指定版本nodejs"
     echo "  7) docker安装filebrowser"
-    echo "  8) 退出脚本"
+    echo "  8) Frps服务端一键配置脚本"  
     echo ""
     echo -n "请输入编号: "
     read N
     case $N in
+    0) exit ;;
     1) DD ;;
     2) docker ;;
     3) cloudflare ;;
@@ -112,7 +132,7 @@ shon_online() {
     5) nodejs2 ;;
     6) nodejs3 ;;
     7) filebrowser ;;
-    8) exit ;;
+    8) frps ;;
     *) echo "Wrong input!" ;;
     esac
 }
