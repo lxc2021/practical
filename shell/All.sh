@@ -44,7 +44,7 @@ fi
     shon_online
     }
 
-nodejs nodejs1() {
+nodejs() {
 echo "1.安装/更新 最新长期支持版nodejs"
 echo "2.安装/更新 最新当前发布版nodejs"
 echo "3.安装/更新 指定版本nodejs"
@@ -116,11 +116,9 @@ shon_online() {
     1) DD ;;
     2) docker ;;
     3) cloudflare ;;
-    4) nodejs1 ;;
-    5) nodejs2 ;;
-    6) nodejs3 ;;
-    7) filebrowser ;;
-    8) frps ;;
+    4) nodejs ;;
+    5) filebrowser ;;
+    6) frps ;;
     *) echo "Wrong input!" ;;
     esac
 }
