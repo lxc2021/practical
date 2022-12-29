@@ -86,9 +86,9 @@ filebrowser() {
     }
     
 frps() {
-green "1.Frps服务端安装"
-green "2.Frps服务端更新"
-green "3.Frps服务端卸载"
+echo "1.Frps服务端安装"
+echo "2.Frps服务端更新"
+echo "3.Frps服务端卸载"
 read -p "请输入序号: " yn
  if [[ $yn == "1" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') install
