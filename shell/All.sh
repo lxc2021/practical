@@ -89,7 +89,9 @@ if [[ -n $(docker ps -q -f "name=^${containerName}$") ]];then
   echo "frpc容器已存在"
 else
   echo "frpc容器不存在"
-  mkdir /root/frpc && wget https://github.sanling.ml/YYWO/practical/raw/main/config/frpc.ini
+  rm -rf /root/frpc 
+  mkdir /root/frpc 
+  cd /root/frpc && wget https://github.sanling.ml/YYWO/practical/raw/main/config/frpc.ini
   docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc:latest
   echo "请去/root/frp目录配置frpc.ini文件,配置后需重启frpc服务"
 
