@@ -92,7 +92,7 @@ read -p "请输入序号: " yn
  elif [[ $yn == "3" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') uninstall
  elif [[ $yn == "4" ]];then
-  cd /root && git clone https://github.com/YYWO/frpc.git
+  cd /root && git clone https://wget.sanling.ml/https://github.com/YYWO/frpc.git
   docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc
   echo "请去/root/frp目录配置frpc.ini文件,配置后需重启frpc服务"
   echo "docker restart frpc"
