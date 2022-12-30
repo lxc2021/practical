@@ -48,6 +48,7 @@ nodejs() {
 echo "1.安装/更新 最新长期支持版nodejs"
 echo "2.安装/更新 最新当前发布版nodejs"
 echo "3.安装/更新 指定版本nodejs"
+echo "4.返回"
 read -p "请输入序号: " yn
  if [[ $yn == "1" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/YYWO/practical/raw/main/shell/nodejs.sh') 
@@ -57,6 +58,8 @@ read -p "请输入序号: " yn
   read -p "请选择所要安装的版本：" V
   bash <(curl -sSL 'https://github.sanling.ml/YYWO/practical/raw/main/shell/nodejs.sh') -v $V
   node -v
+  elif [[ $yn == "4" ]];then
+  shon_online
 else
    green "输入有误，如有需要请重新运行"
    shon_online
@@ -75,10 +78,12 @@ filebrowser() {
     shon_online
     }
     
-frps() {
+frp() {
 echo "1.Frps服务端安装"
 echo "2.Frps服务端更新"
 echo "3.Frps服务端卸载"
+echo "4.frpc客户端安装"
+echo "5.返回"
 read -p "请输入序号: " yn
  if [[ $yn == "1" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') install
@@ -86,6 +91,13 @@ read -p "请输入序号: " yn
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') update
  elif [[ $yn == "3" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') uninstall
+ elif [[ $yn == "4" ]];then
+  cd /root && git clone https://github.com/YYWO/frpc.git
+  docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc
+  echo "请去/root/frp目录配置frpc.ini文件,配置后需重启frpc服务"
+  echo "docker restart frpc"
+ elif [[ $yn == "5" ]];then
+  shon_online
 else
    green "输入有误，如有需要请重新运行"
    shon_online
@@ -107,7 +119,7 @@ shon_online() {
     echo "  3) 一键cloudflare内网穿透"
     echo "  4) 安装/更新nodejs"
     echo "  5) docker安装filebrowser"
-    echo "  6) Frps服务端一键配置脚本"  
+    echo "  6) Frp一键脚本"  
     echo ""
     echo -n "请输入编号: "
     read N
@@ -118,7 +130,7 @@ shon_online() {
     3) cloudflare ;;
     4) nodejs ;;
     5) filebrowser ;;
-    6) frps ;;
+    6) frp ;;
     *) echo "Wrong input!" ;;
     esac
 }
