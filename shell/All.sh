@@ -24,7 +24,7 @@ fi
     bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/YYWO/practical/main/shell/InstallNET.sh') -$xt $bb -v 64 -a -firmware -p $password
     
 }
-docker() {
+dockeryuan() {
     echo "一键换源安装docker"
 if [[ $a == *$b* ]]
     then
@@ -64,8 +64,6 @@ else
    green "输入有误，如有需要请重新运行"
    shon_online
 fi
-
-
     }
 
 filebrowser() {
@@ -93,7 +91,7 @@ read -p "请输入序号: " yn
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') uninstall
  elif [[ $yn == "4" ]];then
   cd /root && git clone https://wget.sanling.ml/https://github.com/YYWO/frpc.git
-  docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc
+  docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc:latest
   echo "请去/root/frp目录配置frpc.ini文件,配置后需重启frpc服务"
   echo "docker restart frpc"
  elif [[ $yn == "5" ]];then
@@ -126,7 +124,7 @@ shon_online() {
     case $N in
     0) exit ;;
     1) DD ;;
-    2) docker ;;
+    2) dockeryuan ;;
     3) cloudflare ;;
     4) nodejs ;;
     5) filebrowser ;;
