@@ -4,8 +4,6 @@ if [[ $EUID -ne 0 ]]; then
     echo "错误：本脚本需要 root 权限执行。" 1>&2
     exit 1
 fi
-a=$(curl --noproxy '*' -sSL https://ip.zhp.asia/)
-b="China"
 ## 统计脚本运行次数
 COUNT=$(curl -sm1 "https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.sanling.ml/YYWO/practical&count_bg=#79C83D&title_bg=#555555&icon=&icon_color=#E7E7E7&title=hits&edge_flat=false" 2>&1) &&
 TODAY=$(expr "$COUNT" : '.*\s\([0-9]\{1,\}\)\s/.*')
@@ -36,11 +34,7 @@ fi
 
 cloudflare() {
     echo "一键cloudflare内网穿透"
-if [[ $a == *$b* ]]
-    then
-    bash <(curl -sSL https://wget.sanling.ml/https://raw.githubusercontent.com/YYWO/practical/main/shell/Tunnel.sh)
-fi
-    bash <(curl -sSL https://raw.githubusercontent.com/YYWO/practical/main/shell/Tunnel.sh)
+    bash <(curl -sSL https://github.sanling.ml/YYWO/practical/raw/main/shell/Tunnel.sh)
     shon_online
     }
 
@@ -90,10 +84,16 @@ read -p "请输入序号: " yn
  elif [[ $yn == "3" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') uninstall
  elif [[ $yn == "4" ]];then
-  cd /root && git clone https://wget.sanling.ml/https://github.com/YYWO/frpc.git
+  containerName="frpc"
+if [[ -n $(docker ps -q -f "name=^${containerName}$") ]];then
+  echo "frpc容器已存在"
+else
+  echo "frpc容器不存在"
+  mkdir /root/frpc && wget https://github.sanling.ml/YYWO/practical/raw/main/config/frpc.ini
   docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc:latest
   echo "请去/root/frp目录配置frpc.ini文件,配置后需重启frpc服务"
-  echo "docker restart frpc"
+
+fi
  elif [[ $yn == "5" ]];then
   shon_online
 else
