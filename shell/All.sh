@@ -75,7 +75,8 @@ echo "1.Frps服务端安装"
 echo "2.Frps服务端更新"
 echo "3.Frps服务端卸载"
 echo "4.frpc客户端安装"
-echo "5.返回"
+echo "5.frpc配置文件修改"
+echo "6.返回"
 read -p "请输入序号: " yn
  if [[ $yn == "1" ]];then
   bash <(curl -sSL 'https://github.sanling.ml/MvsCode/frps-onekey/raw/master/install-frps.sh') install
@@ -91,12 +92,20 @@ else
   echo "frpc容器不存在"
   rm -rf /root/frpc 
   mkdir /root/frpc 
-  cd /root/frpc && wget https://github.sanling.ml/YYWO/practical/raw/main/config/frpc.ini
+  echo [common] >> /root/frpc/frpc.ini
+  read -p "请输入Frps服务端IP或者域名：" server_addr
+  echo server_addr = $server_addr >> /root/frpc/frpc.ini
+  read -p "请输入Frps服务端的端口：" server_port
+  echo server_port = $server_addr >> /root/frpc/frpc.ini
+  read -p "请输入Frps服务端的token：" token
+  echo token = $token >> /root/frpc/frpc.ini
   docker run -d --name=frpc --restart=always -v /root/frpc/frpc.ini:/frp/frpc.ini sanling000/frpc:latest
   echo "请去/root/frp目录配置frpc.ini文件,配置后需重启frpc服务"
-
+frpc
 fi
  elif [[ $yn == "5" ]];then
+  frpc
+ elif [[ $yn == "6" ]];then
   shon_online
 else
    green "输入有误，如有需要请重新运行"
@@ -104,6 +113,80 @@ else
 fi
     }
     
+
+frpc() {
+echo "1.tcp"
+echo "2.http"
+echo "3.https"
+
+read -p "请输入序号: " yn
+ if [[ $yn == "1" ]];then
+ read -p "请输入名称：" tcpm
+ echo [tcp_$tcpm] >> /root/frpc/frpc.ini
+ echo type = tcp >> /root/frpc/frpc.ini
+ read -p "请输入需要穿透的IP：" local_ip
+ echo local_ip = $local_ip >> /root/frpc/frpc.ini
+ read -p "请输入需要穿透的端口：" local_port
+ echo local_port = $local_port >> /root/frpc/frpc.ini
+ read -p "请输入远端穿透端口：" remote_port
+ echo remote_port = $remote_port >> /root/frpc/frpc.ini
+ echo "配置完成"
+ docker restart frpc
+ elif [[ $yn == "2" ]];then
+ read -p "请输入名称：" httpm
+ echo [web_$httpm] >> /root/frpc/frpc.ini
+ echo type = http >> /root/frpc/frpc.ini
+ read -p "请输入需要穿透的IP：" local_ip
+ echo local_ip = $local_ip >> /root/frpc/frpc.ini
+ read -p "请输入需要穿透的端口：" local_port
+ echo local_port = $local_port >> /root/frpc/frpc.ini
+ read -p "请填写你解析到服务器的域名：" custom_domains
+ echo custom_domains = $custom_domains >> /root/frpc/frpc.ini
+ echo "配置完成"
+ docker restart frpc
+ elif [[ $yn == "3" ]];then
+ read -p "请输入名称：" httpsm
+ echo [web_$httpsm] >> /root/frpc/frpc.ini
+ echo type = http >> /root/frpc/frpc.ini
+ read -p "请输入需要穿透的IP：" local_ip
+ echo local_ip = $local_ip >> /root/frpc/frpc.ini
+ read -p "请输入需要穿透的端口：" local_port
+ echo local_port = $local_port >> /root/frpc/frpc.ini
+ read -p "请填写你解析到服务器的域名：" custom_domains
+ echo custom_domains = $custom_domains >> /root/frpc/frpc.ini
+ echo "配置完成"
+ docker restart frpc
+else
+   green "输入有误，如有需要请重新运行"
+   shon_online
+fi
+    }
+    
+mzproxy() {
+    echo "mzzsfy代理池搭建"
+    read -p "请输入映射目录（默认/root/proxy）：" catalogue
+	[ -z $catalogue ] && catalogue=/root/proxy
+	read -p "请输入映射端口（默认8080）：" port
+	[ -z $port ] && port=8080
+	read -p "请输入容器名称（默认mzproxy）：" dockername
+	[ -z $dockername ] && dockername=mzproxy
+	docker run -itd -v $catalogue:/run/data -p $port:8080 --name $dockername mzzsfy/auto-proxy-pool
+	cd $catalogue && wget https://github.sanling.ml/YYWO/practical/raw/main/config/proxy.yml
+    read -p "提取代理API地址：" apiUrl
+    apiUrl=$apiUrl && sed -i "s/apiUrl: xxx/apiUrl: $apiUrl/g" $catalogue/proxy.yml
+    read -p "自动失效时间（默认25秒）：" lifecycle
+	[ -z $lifecycle ] && lifecycle=25
+    lifecycle=$lifecycle && sed -i "s/lifecycle: 25/lifecycle: $lifecycle/g" $catalogue/proxy.yml
+    read -p "保留几个上游（默认1个）：" maxSize
+	[ -z $maxSize ] && maxSize=1
+    lifecycle=$maxSize && sed -i "s/maxSize: 1/maxSize: $maxSize/g" $catalogue/proxy.yml
+    read -p "自动请求代理API时间（默认1000ms个）：" requestInterval
+	[ -z $requestInterval ] && requestInterval=1000ms
+    lifecycle=$requestInterval && sed -i "s/requestInterval: 1000ms/requestInterval: $requestInterval/g" $catalogue/proxy.yml
+    echo "搭建完成，此程序只有首次搭建有效"
+    sleep 5
+    shon_online
+    }
 
 shon_online() {
     echo ""
@@ -120,6 +203,7 @@ shon_online() {
     echo "  4) 安装/更新nodejs"
     echo "  5) docker安装filebrowser"
     echo "  6) Frp一键脚本"  
+    echo "  7) mzzsfy代理池搭建"  
     echo ""
     echo -n "请输入编号: "
     read N
@@ -131,6 +215,7 @@ shon_online() {
     4) nodejs ;;
     5) filebrowser ;;
     6) frp ;;
+    7) mzproxy ;;
     *) echo "Wrong input!" ;;
     esac
 }
