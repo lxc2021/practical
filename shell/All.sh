@@ -173,7 +173,7 @@ mzproxy() {
 	docker run -itd -v $catalogue:/run/data -p $port:8080 --name $dockername mzzsfy/auto-proxy-pool
 	cd $catalogue && wget https://github.sanling.ml/YYWO/practical/raw/main/config/proxy.yml
     read -p "提取代理API地址：" apiUrl
-    apiUrl=$apiUrl && sed -i "s/apiUrl: xxx/apiUrl: $apiUrl/g" $catalogue/proxy.yml
+    apiUrl=$apiUrl && sed -i "s/apiUrl: xxx/apiUrl: $apiUrl!g" $catalogue/proxy.yml
     read -p "自动失效时间（默认25秒）：" lifecycle
 	[ -z $lifecycle ] && lifecycle=25
     lifecycle=$lifecycle && sed -i "s/lifecycle: 25/lifecycle: $lifecycle/g" $catalogue/proxy.yml
@@ -215,7 +215,7 @@ shon_online() {
     4) nodejs ;;
     5) filebrowser ;;
     6) frp ;;
-    7) mzproxy ;;
+  #  7) mzproxy ;;
     *) echo "Wrong input!" ;;
     esac
 }
