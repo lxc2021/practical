@@ -203,7 +203,7 @@ shon_online() {
     echo "  4) 安装/更新nodejs"
     echo "  5) docker安装filebrowser"
     echo "  6) Frp一键脚本"  
-    echo "  7) mzzsfy代理池搭建"  
+   # echo "  7) mzzsfy代理池搭建"  
     echo ""
     echo -n "请输入编号: "
     read N
@@ -215,7 +215,7 @@ shon_online() {
     4) nodejs ;;
     5) filebrowser ;;
     6) frp ;;
-  #  7) mzproxy ;;
+    7) mzproxy ;;
     *) echo "Wrong input!" ;;
     esac
 }
